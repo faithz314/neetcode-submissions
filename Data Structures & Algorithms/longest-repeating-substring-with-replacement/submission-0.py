@@ -1,0 +1,23 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = defaultdict(int) # letter: frequency
+        l = 0
+        maxf = 0
+        res = 0
+
+        for r in range(len(s)):
+            count[s[r]] +=1
+            maxf = max(maxf, count[s[r]])
+
+            while (r-l+1) - maxf > k:
+                count[s[l]] -=1
+                l+=1
+            res = max(res, r-l+1)
+        return res
+    
+
+    # VERY COMMON PATTERN FOR SLIDING WINDOWS:
+    # 1) frequency map
+    # 2) left pointer and right for loop
+    # 3) nested while loop to catch the left pointer up
+
